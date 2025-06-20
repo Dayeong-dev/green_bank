@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div th:replace="fragments/header :: headerFragment"></div>
+    <section>
+      <h2>답변 상세</h2>
+      <div>
+          <p th:text="${question.title}"></p>
+          <p th:text="${question.content}"></p>
+      </div>
+      <div th:if="${answer != null}">
+          <p th:text="${answer.admin.name}"></p>
+          <p th:text="${answer.content}"></p>
+      </div>
+      <div>
+        <a th:href="'/updateForm/' + ${question.qno}">수정</a>
+        <a th:href="'/deleteQuestion/' + ${question.qno}">삭제</a>
+      </div>
+      <a href="/myPage">목록으로 돌아가기</a>
+    </section>
+</body>
+</html>

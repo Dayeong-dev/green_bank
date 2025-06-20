@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div th:replace="fragments/header :: headerFragment"></div>
+    <section>
+        <h2>문의 유형 선택</h2>
+        <div>
+            <a href="/questionForm/1" class="type_btn">예금</a>
+            <a href="/questionForm/2" class="type_btn">카드</a>
+            <a href="/questionForm/3" class="type_btn">대출</a>
+            <a href="/questionForm/4" class="type_btn">펀드</a>
+        </div>
+    </section>
+</body>
+</html>
