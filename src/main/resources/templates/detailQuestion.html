@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>질문 상세 보기</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    .detail-box {
+      border: 1px solid #ccc;
+      padding: 20px;
+      width: 70%;
+      margin-bottom: 20px;
+    }
+
+    .detail-box p {
+      margin: 10px 0;
+      font-size: 16px;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 10px;
+    }
+
+    .answer-btn, .back-btn {
+      padding: 8px 16px;
+      border: none;
+      cursor: pointer;
+      font-size: 15px;
+      border-radius: 5px;
+    }
+
+    .answer-btn {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .back-btn {
+      background-color: #888;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<h2>질문 상세</h2>
+
+<div class="detail-box">
+  <p><strong>제목:</strong> <span th:text="${question.title}">제목</span></p>
+  <p><strong>내용:</strong> <span th:text="${question.content}">내용</span></p>
+  <p><strong>작성자:</strong> <span th:text="${question.user.username}">작성자</span></p>
+  <p><strong>답변여부:</strong> <span th:utext="${question.isanswered == '1' ? '&#x2B55;' : '&#x274C;'}">❌</span></p>
+</div>
+
+<div class="btn-group">
+  <!-- 답변하기 이동 버튼 -->
+  <form th:action="@{/answer}" method="get">
+    <input type="hidden" name="id" th:value="${question.qno}" />
+    <button type="submit" class="answer-btn">답변하기</button>
+  </form>
+
+  <!-- 목록으로 돌아가기 -->
+  <button onclick="location.href='/'" class="back-btn">목록으로</button>
+</div>
+
+</body>
+</html>
+
