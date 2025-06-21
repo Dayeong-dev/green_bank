@@ -17,10 +17,22 @@
           <p th:text="${answer.content}"></p>
       </div>
       <div>
-        <a th:href="'/updateForm/' + ${question.qno}">수정</a>
-        <a th:href="'/deleteQuestion/' + ${question.qno}">삭제</a>
+        <button th:data-qno="${question.qno}" th:onclick="updateQuestion(this.getAttribute('data-qno'))">수정</button>
+        <button th:data-qno="${question.qno}" th:onclick="deleteQuestion(this.getAttribute('data-qno'))">삭제</button>
       </div>
       <a href="/myPage">목록으로 돌아가기</a>
     </section>
+    <script>
+        function updateQuestion(qno) {
+            location.href = "/updateForm/" + qno;
+        }
+
+        function deleteQuestion(qno) {
+            if(confirm("해당 문의를 삭제하시겠습니까??")) {
+                location.href = "/deleteQuestion/" + qno;
+            }
+        }
+
+    </script>
 </body>
 </html>

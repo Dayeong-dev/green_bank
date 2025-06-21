@@ -94,6 +94,11 @@ public class QuestionController {
     @GetMapping("/updateForm/{qno}")
     public String updateForm(@PathVariable("qno") Integer qno, Model model) {
         QuestionDTO questionDTO = questionService.getQuestionByQno(qno);
+
+        if(questionDTO == null) {
+            return "redirect:/main";
+        }
+
         model.addAttribute("question", questionDTO);
 
         return "updateForm";
@@ -101,15 +106,22 @@ public class QuestionController {
 
     @PostMapping("/updateQuestion/{qno}")
     public String updateQuestion(@PathVariable("qno") Integer qno, QuestionDTO questionDTO) {
-        System.out.println(qno);
-        System.out.println(questionDTO);
+        boolean result = questionService.updateQuestion(qno, questionDTO);
+
+        if(!result) {
+            return "redirect:/updateForm/" + qno;
+        }
 
         return "redirect:/questionDetail/" + qno;
     }
 
     @GetMapping("/deleteQuestion/{qno}")
     public String deleteQuestion(@PathVariable("qno") Integer qno) {
-        questionService.deleteQuestion(qno);
+        boolean result = questionService.deleteQuestion(qno);
+
+        if(!result) {
+            return "redirect:/questionDetail/" + qno;
+        }
 
         return "redirect:/myPage";
     }

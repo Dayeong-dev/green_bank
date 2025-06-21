@@ -99,7 +99,33 @@ public class QuestionService {
         return questionMapper.toDTO(question);
     }
 
-    public void deleteQuestion(Integer qno) {
+    @Transactional
+    public boolean deleteQuestion(Integer qno) {
+        if(!questionRepository.existsById(qno)) {
+            return false;
+        }
         questionRepository.deleteById(qno);
+        return true;
+    }
+
+    @Transactional
+    public boolean updateQuestion(Integer qno, QuestionDTO questionDTO) {
+        if(qno == 0 || questionDTO == null) {   // 조회 혹은 수정할 값이 없음
+            return false;
+        }
+
+        Optional<Question> result = questionRepository.findById(qno);
+
+        if(result.isEmpty()) {      // 해당 문의 번호가 DB에 없음
+            return false;
+        }
+        Question curr_question = result.get();
+
+        curr_question.setTitle(questionDTO.getTitle());
+        curr_question.setContent(questionDTO.getContent());
+
+        questionRepository.save(curr_question);
+
+        return true;
     }
 }
