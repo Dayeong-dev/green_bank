@@ -8,10 +8,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class FilterConfig {
     @Bean
-    public FilterRegistrationBean<SessionFilter> jwtFilter(){
+    public FilterRegistrationBean<SessionFilter> jwtFilter(UserRepository userRepository){
         FilterRegistrationBean<SessionFilter> registrationBean = new FilterRegistrationBean<>();
 
-        registrationBean.setFilter(new SessionFilter());
+        registrationBean.setFilter(new SessionFilter(userRepository));
         registrationBean.addUrlPatterns("/*");
         registrationBean.setOrder(1);
 

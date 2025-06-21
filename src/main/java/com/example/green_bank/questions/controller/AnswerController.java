@@ -1,6 +1,6 @@
-package com.example.green_bank.admin.controller;
+package com.example.green_bank.questions.controller;
 
-import com.example.green_bank.admin.repository.AnswerRepository;
+import com.example.green_bank.questions.repository.AnswerRepository;
 import com.example.green_bank.questions.entity.Answer;
 import com.example.green_bank.questions.entity.Question;
 import com.example.green_bank.questions.repository.QuestionRepository;
@@ -18,7 +18,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin")
-public class answerController {
+public class AnswerController {
 
     @Autowired
     private QuestionRepository questionRepository;
@@ -28,7 +28,7 @@ public class answerController {
 
 
     // 전체 질문 리스트
-    @GetMapping("/")
+    @GetMapping("/main")
     public String allQuestion(Model model) {
         List<Question> questions = questionRepository.findAll();
         model.addAttribute("qnaList", questions); // allQuestion.html에서 qnaList로 사용됨
@@ -43,7 +43,7 @@ public class answerController {
             model.addAttribute("question", optionalQuestion.get());
             return "answerQuestion"; // templates/answerQuestion.html
         } else {
-            return "redirect:/"; // 질문이 없으면 목록으로 이동
+            return "redirect:/admin/main"; // 질문이 없으면 목록으로 이동
         }
     }
 
@@ -55,7 +55,7 @@ public class answerController {
             model.addAttribute("question", optionalQuestion.get());
             return "detailQuestion"; // templates/detailQuestion.html
         } else {
-            return "redirect:/";
+            return "redirect:/admin/main";
         }
     }
 
@@ -81,7 +81,7 @@ public class answerController {
             questionRepository.save(question);
         }
 
-        return "redirect:/";  // 등록 후 목록으로 이동
+        return "redirect:/admin/main";  // 등록 후 목록으로 이동
     }
 
 }

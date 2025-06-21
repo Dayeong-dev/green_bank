@@ -1,7 +1,6 @@
 package com.example.green_bank.questions.service;
 
-import com.example.green_bank.admin.dto.AnswerDto;
-import com.example.green_bank.admin.repository.AnswerRepository;
+import com.example.green_bank.questions.repository.AnswerRepository;
 import com.example.green_bank.questions.dto.QuestionAnswerDTO;
 import com.example.green_bank.questions.dto.QuestionDTO;
 import com.example.green_bank.questions.entity.Answer;
@@ -14,7 +13,6 @@ import com.example.green_bank.user.entity.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

@@ -13,9 +13,11 @@ import java.io.IOException;
 import java.util.Optional;
 
 public class SessionFilter implements Filter {
+    private final UserRepository userRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+    public SessionFilter(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)throws IOException, ServletException {
 
@@ -23,37 +25,68 @@ public class SessionFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) response;
 
         String uri = req.getRequestURI();
-        System.out.println("hello" + uri);
 
-        if (uri.startsWith("/login") || uri.startsWith("/join") || uri.equals("/") || uri.startsWith("/images") || uri.equals("/checkId")) {
+        System.out.println("Uri: " + uri);
+
+        // 정적 자원과 인터넷 표준 경로는 필터 통과
+        if(uri.startsWith("/css") || uri.startsWith("/images") || uri.startsWith("/js") || uri.startsWith("/.well-known")) {
             chain.doFilter(request, response); // 필터 통과
             return;
         }
+
+        // 사용자 로그인/회원가입은 필터 통과
+        if(uri.startsWith("/user/login") || uri.startsWith("/user/join")) {
+            chain.doFilter(request, response);
+            return;
+        }
+
+        // 관리자 로그인/회원가입은 필터 통과
+
+
         System.out.println("필터작동!!!!");
+
         HttpSession session = req.getSession();
-
         String username = (String) session.getAttribute("username");
+        String adminId = (String) session.getAttribute("adminId");
 
-        if (username == null || username.isEmpty()) {
-            res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            return;
-        }
+        // 세션에 사용자 계정 有
+        if (username != null) {
+            try {
+                Optional<User> findUser = userRepository.findById(username);
 
-        try {
-            Optional<User> findUser = userRepository.findById(username);
-
-            if (findUser.isPresent()) {
-                User user = findUser.get();
-                req.setAttribute("username", user.getUsername());
-                chain.doFilter(request, response);
+                if (findUser.isPresent()) {
+                    System.out.println("username: " + username);
+                    User user = findUser.get();
+                    req.setAttribute("username", user.getUsername());
+                    chain.doFilter(request, response);
+                    return;
+                }
+            } catch (Exception e) {
+                System.out.println("Error: 유효하지 않은 username 입니다.");
+                System.out.println(e.toString());
             }
-            res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            return;
 
-
-        } catch (Exception e) {
             res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            res.sendRedirect("/user/loginForm");
             return;
         }
+
+        // 세션에 관리자 계정 有
+        if(adminId != null) {
+            req.setAttribute("adminId", adminId);
+            chain.doFilter(request, response);
+            return;
+        }
+
+        // 관리자 페이지 접근 시 관리자 로그인 폼으로 redirect
+        if(uri.startsWith("/admin")) {
+            res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            res.sendRedirect("/admin/loginForm");
+            return;
+        }
+
+        // 사용자 로그인 폼으로 redirect
+        res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        res.sendRedirect("/user/loginForm");
     }
 }

@@ -11,11 +11,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
 @Controller
+@RequestMapping("/user")
 public class QuestionController {
     private final QuestionService questionService;
     private final QuestionTypeService questionTypeService;
@@ -29,8 +31,6 @@ public class QuestionController {
     public String main(HttpSession session) {
         System.out.println("root......");
 
-        session.setAttribute("username", "user01");
-
         return "main";
     }
 
@@ -39,7 +39,7 @@ public class QuestionController {
         QuestionTypeDTO questionTypeDTO = questionTypeService.getQuestionType(typeId);
 
         if(questionTypeDTO == null) {   // 관련된 문의 유형이 없음
-            return "redirect:/main";
+            return "redirect:/user/main";
         }
 
         model.addAttribute("typeId", questionTypeDTO.getTypeid());
@@ -56,10 +56,10 @@ public class QuestionController {
 
         if(!result) {
             rttr.addFlashAttribute("errorMsg", "문의를 보내는 중 문제가 발생했습니다. ");
-            return "redirect:/questionForm/" + typeId;
+            return "redirect:/user/questionForm/" + typeId;
         }
 
-        return "redirect:/regSuccess";
+        return "redirect:/user/regSuccess";
     }
 
     @GetMapping("/regSuccess")
@@ -82,7 +82,7 @@ public class QuestionController {
         QuestionAnswerDTO questionAnswerDTO = questionService.getQuestionAnswerByQno(qno);
 
         if(questionAnswerDTO == null) {
-            return "redirect:/main";
+            return "redirect:/user/main";
         }
 
         model.addAttribute("question", questionAnswerDTO.getQuestionDTO());
@@ -96,7 +96,7 @@ public class QuestionController {
         QuestionDTO questionDTO = questionService.getQuestionByQno(qno);
 
         if(questionDTO == null) {
-            return "redirect:/main";
+            return "redirect:/user/main";
         }
 
         model.addAttribute("question", questionDTO);
@@ -109,10 +109,10 @@ public class QuestionController {
         boolean result = questionService.updateQuestion(qno, questionDTO);
 
         if(!result) {
-            return "redirect:/updateForm/" + qno;
+            return "redirect:/user/updateForm/" + qno;
         }
 
-        return "redirect:/questionDetail/" + qno;
+        return "redirect:/user/questionDetail/" + qno;
     }
 
     @GetMapping("/deleteQuestion/{qno}")
@@ -120,9 +120,9 @@ public class QuestionController {
         boolean result = questionService.deleteQuestion(qno);
 
         if(!result) {
-            return "redirect:/questionDetail/" + qno;
+            return "redirect:/user/questionDetail/" + qno;
         }
 
-        return "redirect:/myPage";
+        return "redirect:/user/myPage";
     }
 }

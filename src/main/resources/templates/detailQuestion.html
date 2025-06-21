@@ -62,7 +62,7 @@
 
 <div class="btn-group">
   <!-- 답변하기 이동 버튼 -->
-  <form th:action="@{/answer}" method="get">
+  <form th:action="@{/admin/answer}" method="get">
     <input type="hidden" name="id" th:value="${question.qno}" />
     <button type="submit" class="answer-btn">답변하기</button>
   </form>

@@ -37,7 +37,7 @@
 
 <h1>답변 하기</h1>
 
-<form th:action="@{/answer/submit}" method="post">
+<form th:action="@{/admin/answer/submit}" method="post">
   <!-- 질문 번호 숨겨서 전송 -->
   <input type="hidden" name="qno" th:value="${question.qno}" />
 

@@ -1,10 +1,7 @@
-package com.example.green_bank.admin.repository;
+package com.example.green_bank.questions.repository;
 
-import com.example.green_bank.admin.dto.AnswerDto;
 import com.example.green_bank.questions.entity.Answer;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.Optional;
 
 public interface AnswerRepository extends JpaRepository<Answer, Integer> {
 
