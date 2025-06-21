@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Join page</title>
+</head>
+<body>
+<img src="/images/logo.png" alt="로고" style="width:200px">
+<form action="/join" method="post" onsubmit="return checkForm()">
+  <input type="text" name="username" id="username" placeholder="Input UserName......" required>
+    <button type="button" onclick="check_id(event)">중복확인</button>
+  <p id="notice_p"></p>
+  <input type="password" name="password" placeholder="Input Password......" required> <br>
+  <input type="text" name="name" placeholder="Input Name......" required> <br>
+  <input type="text" name="phone" placeholder="Input Phone Number......" required> <br>
+  <p id="notice_p2"></p>
+  <input type="submit" value="가입하기">
+</form>
+<p>이미 가입하셨다면? >> <a href="/loginPg">로그인</a></p>
+
+<script>
+
+    const notice_p = document.getElementById('notice_p');
+    const notice_p2 = document.getElementById('notice_p2');
+
+    let check = false;
+
+    function check_id(){
+
+    const username = document.getElementById('username').value;
+
+    fetch("/checkId", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: `username=${encodeURIComponent(username)}`
+        })
+        .then(response => {
+          return response.text();
+        })
+        .then(message => {
+          notice_p.innerText = message;
+          check = true;
+        })
+        .catch(error => {
+          notice_p.innerText = "오류가 발생했습니다.";
+    });
+}
+
+function checkForm() {
+
+  if (!check) {
+    notice_p2.innerText = "아이디 중복검사를 시행하세요";
+    return false;
+  }
+  return true;
+}
+</script>
+
+
+</body>
+</html>
