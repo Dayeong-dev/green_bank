@@ -2,17 +2,39 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/user.css" />
     <title>Title</title>
 </head>
 <body>
     <div th:replace="fragments/header :: headerFragment"></div>
-    <section>
+    <section id="main">
         <h2>문의 유형 선택</h2>
-        <div>
-            <a href="/questionForm/1" class="type_btn">예금</a>
-            <a href="/questionForm/2" class="type_btn">카드</a>
-            <a href="/questionForm/3" class="type_btn">대출</a>
-            <a href="/questionForm/4" class="type_btn">펀드</a>
+        <div class="btn-list">
+            <a href="/questionForm/1" class="type_btn">
+                <div class="img-wrap">
+                    <img src="/images/saving.png" alt="예금" />
+                </div>
+                <label>예금</label>
+            </a>
+            <a href="/questionForm/2" class="type_btn">
+                <div class="img-wrap">
+                    <img src="/images/card.png" alt="카드" />
+                </div>
+                <label>카드</label>
+            </a>
+            <a href="/questionForm/3" class="type_btn">
+                <div class="img-wrap">
+                    <img src="/images/loan.png" alt="대출" />
+                </div>
+                <label>대출</label>
+            </a>
+            <a href="/questionForm/4" class="type_btn">
+                <div class="img-wrap">
+                    <img src="/images/fund.png" alt="펀드" />
+                </div>
+                <label>펀드</label>
+            </a>
         </div>
     </section>
 </body>

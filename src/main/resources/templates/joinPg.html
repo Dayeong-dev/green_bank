@@ -2,15 +2,19 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/user.css" />
     <title>Join page</title>
 </head>
 <body>
-    <section>
+    <section id="join">
         <img src="/images/logo.png" alt="로고" style="width:200px">
         <form action="/join" method="post" onsubmit="return checkForm()">
             <input type="text" name="username" id="username" placeholder="Input UserName......" required>
-            <button type="button" onclick="check_id(event)">중복확인</button>
-            <p id="notice_p"></p>
+            <div class="check-id-wrap">
+                <p id="notice_p"></p>
+                <button type="button" onclick="check_id(event)">중복확인</button>
+            </div>
             <input type="password" name="password" placeholder="Input Password......" required> <br>
             <input type="text" name="name" placeholder="Input Name......" required> <br>
             <input type="text" name="phone" placeholder="Input Phone Number......" required> <br>

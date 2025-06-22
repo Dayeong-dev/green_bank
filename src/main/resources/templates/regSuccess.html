@@ -2,19 +2,19 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/user.css" />
     <title>Title</title>
 </head>
 <body>
     <div th:replace="fragments/header :: headerFragment"></div>
-    <section>
+    <section id="regSuccess">
         <h4>
-          문의가 완료되었습니다!<br/>
+          문의가 완료되었습니다! <br/>
           마이페이지를 확인 해주세요.
         </h4>
-        <div>
-          <p><a href="/myPage">마이페이지</a>로 이동하기</p>
-          <p><a href="/">홈</a>으로 이동하기</p>
-        </div>
+        <p><a href="/myPage">마이페이지</a> 로 이동하기</p>
+        <p><a href="/">메인</a> 으로 이동하기</p>
     </section>
 </body>
 </html>

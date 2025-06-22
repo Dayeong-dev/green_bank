@@ -1,0 +1,168 @@
+@charset "UTF-8";
+
+:root {
+    --primary-color: #72D48F;
+    --secondary-color: #64c483;
+}
+
+@font-face {
+    font-family: 'BNKGothic';
+    src: url('/fonts/BNKGothic-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BNKGothic';
+    src: url('/fonts/BNKGothic-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 16px;
+    font-family: 'BNKGothic', sans-serif;
+    font-weight: 400;
+}
+
+a {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+header {
+    width: 100%;
+    height: 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0px 1rem;
+}
+
+header #logo img {
+    height: 3rem;
+}
+
+header ul {
+    display: flex;
+    column-gap: 1.5rem;
+}
+
+header ul .welcome span {
+    font-weight: 700;
+}
+
+section {
+    width: 100%;
+    min-height: calc(100vh - 5rem);
+    padding: 6rem 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h2 {
+    margin: 1.5rem 0;
+}
+
+table {
+    text-align: center;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: #f6f6f6;
+}
+
+thead th {
+    color: #444;
+    padding: 0.5rem 1rem;
+    font-weight: 700;
+}
+
+tbody td {
+    padding: 0.5rem 1rem;
+    border-top: 1px solid #eee;
+}
+
+input[type="text"],
+input[type='password'],
+textarea {
+    width: 20rem;
+    padding: 0.75rem 1rem;
+    margin: 0.5rem;
+    font-size: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    color: #444;
+    outline: none;
+    resize: none;
+}
+
+input:focus, textarea:focus {
+    border-color: var(--primary-color);
+}
+
+::placeholder {
+    color: #aaa;
+}
+
+textarea {
+    height: 10rem;
+}
+
+button,
+input[type="submit"] {
+    padding: 0.5rem 2rem;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: white;
+    border: none;
+    border-radius: 1rem;
+    cursor: pointer;
+}
+
+input[type="submit"] {
+    width: 20rem;
+    height: 2.5rem;
+    margin: 1rem 0;
+
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+button {
+    background-color: #262626;
+}
+
+button:hover {
+    background-color: #000;
+}
+
+input[type="submit"] {
+    background-color: var(--primary-color);
+}
+
+input[type="submit"]:hover {
+    background-color: var(--secondary-color);
+}
+
+form {
+    text-align: center;
+}

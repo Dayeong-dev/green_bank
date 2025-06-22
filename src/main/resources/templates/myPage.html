@@ -2,11 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/user.css" />
     <title>Title</title>
 </head>
 <body>
     <div th:replace="fragments/header :: headerFragment"></div>
-    <section>
+    <section id="myPage">
         <h2>나의 문의내역</h2>
         <table border="1">
             <thead>
@@ -22,9 +24,9 @@
                 <tr>
                   <td th:text="${question.qno}"></td>
                   <td th:text="${question.questionType.name}"></td>
-                  <td><a th:href="'/questionDetail/' + ${question.qno}" th:text="${question.title}"></a></td>
-                  <td th:text="${question.createdAt}"></td>
-                  <td th:text="${question.isanswered == 0 ? '미답변' : '답변완료'}"></td>
+                  <td class="title-cell"><a th:href="'/questionDetail/' + ${question.qno}" th:text="${question.title}"></a></td>
+                  <td th:text="${#temporals.format(question.createdAt, 'yyyy-MM-dd HH:mm')}"></td>
+                  <td th:text="${question.isanswered == '0' ? '미답변' : '답변완료'}"></td>
                 </tr>
             </tbody>
         </table>

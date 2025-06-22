@@ -1,5 +1,6 @@
 package com.example.green_bank.questions.controller;
 
+import com.example.green_bank.admin.entity.Admin;
 import com.example.green_bank.questions.repository.AnswerRepository;
 import com.example.green_bank.questions.entity.Answer;
 import com.example.green_bank.questions.entity.Question;
@@ -73,16 +74,23 @@ public class AnswerController {
     @PostMapping("/answer/submit")
     public String submitAnswer(@RequestParam("qno") Integer qno,
                                @RequestParam("answer") String content,
+                               HttpSession session,
                                Model model) {
 
         Optional<Question> optionalQuestion = questionRepository.findById(qno);
+        String adminId = (String) session.getAttribute("adminId");
+
         if (optionalQuestion.isPresent()) {
             Question question = optionalQuestion.get();
+            Admin admin = new Admin();
+
+            admin.setAdminid(adminId);
+
             // 1. Answer 엔티티 생성 및 저장
             Answer answer = Answer.builder()
                     .content(content)
                     .question(question)
-                    //.admin(admin)
+                    .admin(admin)
                     .build();
 
             answerRepository.save(answer);
