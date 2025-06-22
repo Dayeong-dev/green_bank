@@ -4,6 +4,8 @@ import com.example.green_bank.questions.repository.AnswerRepository;
 import com.example.green_bank.questions.entity.Answer;
 import com.example.green_bank.questions.entity.Question;
 import com.example.green_bank.questions.repository.QuestionRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,13 +28,15 @@ public class AnswerController {
     @Autowired
     private AnswerRepository answerRepository;
 
+    @Autowired
+    private HttpServletRequest request;
 
-    // 전체 질문 리스트
-    @GetMapping("/main")
+    // 모든 문의 관리
+    @GetMapping("/question/all")
     public String allQuestion(Model model) {
         List<Question> questions = questionRepository.findAll();
         model.addAttribute("qnaList", questions); // allQuestion.html에서 qnaList로 사용됨
-        return "allQuestion"; // templates/allQuestion.html
+        return "admin/allQuestion"; // templates/admin/allQuestion.html
     }
 
     // 답변하기 폼으로 이동
@@ -41,9 +45,9 @@ public class AnswerController {
         Optional<Question> optionalQuestion = questionRepository.findById(id);
         if (optionalQuestion.isPresent()) {
             model.addAttribute("question", optionalQuestion.get());
-            return "answerQuestion"; // templates/answerQuestion.html
+            return "admin/answerQuestion"; // templates/admin/answerQuestion.html
         } else {
-            return "redirect:/admin/main"; // 질문이 없으면 목록으로 이동
+            return "redirect:" + getBackUrl(); // 질문이 없으면 목록으로 이동
         }
     }
 
@@ -53,9 +57,9 @@ public class AnswerController {
         Optional<Question> optionalQuestion = questionRepository.findById(id);
         if (optionalQuestion.isPresent()) {
             model.addAttribute("question", optionalQuestion.get());
-            return "detailQuestion"; // templates/detailQuestion.html
+            return "admin/detailQuestion"; // templates/admin/detailQuestion.html
         } else {
-            return "redirect:/admin/main";
+            return "redirect:" + getBackUrl();
         }
     }
 
@@ -81,7 +85,17 @@ public class AnswerController {
             questionRepository.save(question);
         }
 
-        return "redirect:/admin/main";  // 등록 후 목록으로 이동
+        return "redirect:/admin/question/detail?id=" + qno;  // 등록 후 상세로 이동
+    }
+
+    public String getBackUrl() {
+        String referer = request.getHeader("referer");
+
+        if(referer == null)  {
+            return "/admin";
+        }
+
+        return referer;
     }
 
 }

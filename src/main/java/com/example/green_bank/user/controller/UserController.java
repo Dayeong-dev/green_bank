@@ -53,12 +53,15 @@ public class UserController {
         return "redirect:/user/joinForm";
     }
 
-    @PostMapping("login")
+    @PostMapping("/login")
     public String login(UserDTO userDTO, HttpSession session, RedirectAttributes rttr){
         String msg = "";
-        if(userService.login(userDTO)){
-            session.setAttribute("username", userDTO.getUsername());
-            return "redirect:/user/main";
+        UserDTO user = userService.login(userDTO);
+
+        if(user != null){
+            session.setAttribute("username", user.getUsername());
+            session.setAttribute("name", user.getName());
+            return "redirect:/user";
         }else{
             msg = "아이디 및 비밀번호를 확인해주세요";
             rttr.addFlashAttribute("msg", msg);

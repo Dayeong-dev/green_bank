@@ -1,6 +1,8 @@
 package com.example.green_bank.user.config;
 
 
+import com.example.green_bank.admin.entity.Admin;
+import com.example.green_bank.admin.repository.AdminRepository;
 import com.example.green_bank.user.entity.User;
 import com.example.green_bank.user.repository.UserRepository;
 import jakarta.servlet.*;
@@ -14,9 +16,11 @@ import java.util.Optional;
 
 public class SessionFilter implements Filter {
     private final UserRepository userRepository;
+    private final AdminRepository adminRepository;
 
-    public SessionFilter(UserRepository userRepository) {
+    public SessionFilter(UserRepository userRepository, AdminRepository adminRepository) {
         this.userRepository = userRepository;
+        this.adminRepository = adminRepository;
     }
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)throws IOException, ServletException {
@@ -40,7 +44,11 @@ public class SessionFilter implements Filter {
             return;
         }
 
-        // 관리자 로그인/회원가입은 필터 통과
+        // 관리자 로그인은 필터 통과
+        if(uri.startsWith("/admin/login")) {
+            chain.doFilter(request, response);
+            return;
+        }
 
 
         System.out.println("필터작동!!!!");
@@ -65,17 +73,24 @@ public class SessionFilter implements Filter {
                 System.out.println("Error: 유효하지 않은 username 입니다.");
                 System.out.println(e.toString());
             }
-
-            res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            res.sendRedirect("/user/loginForm");
-            return;
         }
 
         // 세션에 관리자 계정 有
         if(adminId != null) {
-            req.setAttribute("adminId", adminId);
-            chain.doFilter(request, response);
-            return;
+            try {
+                Optional<Admin> findAdmin = adminRepository.findById(adminId);
+
+                if (findAdmin.isPresent()) {
+                    System.out.println("Admin Id: " + adminId);
+                    Admin admin = findAdmin.get();
+                    req.setAttribute("adminId", admin.getAdminid());
+                    chain.doFilter(request, response);
+                    return;
+                }
+            } catch (Exception e) {
+                System.out.println("Error: 유효하지 않은 Admin Id 입니다.");
+                System.out.println(e.toString());
+            }
         }
 
         // 관리자 페이지 접근 시 관리자 로그인 폼으로 redirect
