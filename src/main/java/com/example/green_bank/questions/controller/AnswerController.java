@@ -55,8 +55,14 @@ public class AnswerController {
     @GetMapping("/question/detail")
     public String detailQuestion(@RequestParam("id") Integer id, Model model) {
         Optional<Question> optionalQuestion = questionRepository.findById(id);
+
         if (optionalQuestion.isPresent()) {
-            model.addAttribute("question", optionalQuestion.get());
+            Question question = optionalQuestion.get();
+            Answer answer = answerRepository.findByQuestion_Qno(id);
+
+            model.addAttribute("question", question);
+            model.addAttribute("answer", answer);
+
             return "admin/detailQuestion"; // templates/admin/detailQuestion.html
         } else {
             return "redirect:" + getBackUrl();

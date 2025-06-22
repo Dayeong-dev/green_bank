@@ -7,14 +7,14 @@
 <body>
     <section>
         <img src="/images/logo.png" alt="로고" style="width:200px">
-        <form action="/user/login" method="post">
+        <form action="/login" method="post">
             <input type="text" name="username" placeholder="Input UserName......" required> <br>
             <input type="password" name="password" placeholder="Input Password......" required> <br>
             <input type="submit" value="로그인">
             <p th:if="${msg != null}" th:text="${msg}"></p>
         </form>
 
-        <p>아직 회원이 아니라면? >> <a href="/user/joinForm">회원가입</a></p>
+        <p>아직 회원이 아니라면? >> <a href="/joinForm">회원가입</a></p>
     </section>
 </body>
 </html>

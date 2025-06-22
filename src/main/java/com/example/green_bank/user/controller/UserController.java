@@ -1,7 +1,6 @@
 package com.example.green_bank.user.controller;
 
 import com.example.green_bank.user.dto.UserDTO;
-import com.example.green_bank.user.entity.User;
 import com.example.green_bank.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -45,12 +43,12 @@ public class UserController {
         if(userService.join(userDTO)){
             msg = "회원가입이 완료되었습니다";
             rttr.addFlashAttribute("msg", msg);
-            return "redirect:/user/loginForm";
+            return "redirect:/loginForm";
         }else{
             msg ="다시 진행해주세요";
             rttr.addFlashAttribute("msg", msg);
         }
-        return "redirect:/user/joinForm";
+        return "redirect:/joinForm";
     }
 
     @PostMapping("/login")
@@ -61,12 +59,12 @@ public class UserController {
         if(user != null){
             session.setAttribute("username", user.getUsername());
             session.setAttribute("name", user.getName());
-            return "redirect:/user";
+            return "redirect:/";
         }else{
             msg = "아이디 및 비밀번호를 확인해주세요";
             rttr.addFlashAttribute("msg", msg);
         }
-        return "redirect:/user/loginForm";
+        return "redirect:/loginForm";
     }
 
     @GetMapping("/logout")
@@ -78,7 +76,7 @@ public class UserController {
             session.removeAttribute("name");
         }
 
-        return "redirect:/user/loginForm";
+        return "redirect:/loginForm";
     }
 
 }

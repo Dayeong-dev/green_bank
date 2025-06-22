@@ -27,7 +27,7 @@ public class QuestionController {
     }
 
     // 사용자 - 메인
-    @GetMapping({"/", "/user"})
+    @GetMapping("/")
     public String main() {
         System.out.println("User Main......");
 
@@ -35,12 +35,12 @@ public class QuestionController {
     }
 
     // 사용자 - 문의 화면으로 이동
-    @GetMapping("/user/questionForm/{typeId}")
+    @GetMapping("/questionForm/{typeId}")
     public String questionForm(@PathVariable("typeId") Integer typeId, Model model) {
         QuestionTypeDTO questionTypeDTO = questionTypeService.getQuestionType(typeId);
 
         if(questionTypeDTO == null) {   // 관련된 문의 유형이 없음
-            return "redirect:/user";
+            return "redirect:/";
         }
 
         model.addAttribute("typeId", questionTypeDTO.getTypeid());
@@ -50,7 +50,7 @@ public class QuestionController {
     }
 
     // 사용자 - 문의
-    @PostMapping("/user/regQuestion/{typeId}")
+    @PostMapping("/regQuestion/{typeId}")
     public String regQuestion(@PathVariable("typeId") Integer typeId, QuestionDTO questionDTO, HttpSession session, RedirectAttributes rttr) {
         String username = (String) session.getAttribute("username");
 
@@ -58,20 +58,20 @@ public class QuestionController {
 
         if(!result) {
             rttr.addFlashAttribute("errorMsg", "문의를 보내는 중 문제가 발생했습니다. ");
-            return "redirect:/user/questionForm/" + typeId;
+            return "redirect:/questionForm/" + typeId;
         }
 
-        return "redirect:/user/regSuccess";
+        return "redirect:/regSuccess";
     }
 
     // 사용자 - 문의 완료 화면으로 이동
-    @GetMapping("/user/regSuccess")
+    @GetMapping("/regSuccess")
     public String regSuccess() {
         return "regSuccess";
     }
 
     // 사용자 - 마이페이지로 이동
-    @GetMapping("/user/myPage")
+    @GetMapping("/myPage")
     public String myPage(HttpSession session, Model model) {
         String username = (String) session.getAttribute("username");
 
@@ -82,12 +82,12 @@ public class QuestionController {
     }
 
     // 사용자 - 문의 상세로 이동
-    @GetMapping("/user/questionDetail/{qno}")
+    @GetMapping("/questionDetail/{qno}")
     public String questionDetail(@PathVariable("qno") Integer qno, Model model) {
         QuestionAnswerDTO questionAnswerDTO = questionService.getQuestionAnswerByQno(qno);
 
         if(questionAnswerDTO == null) {
-            return "redirect:/user";
+            return "redirect:/";
         }
 
         model.addAttribute("question", questionAnswerDTO.getQuestionDTO());
@@ -97,12 +97,12 @@ public class QuestionController {
     }
 
     // 사용자 - 문의 수정으로 이동
-    @GetMapping("/user/updateForm/{qno}")
+    @GetMapping("/updateForm/{qno}")
     public String updateForm(@PathVariable("qno") Integer qno, Model model) {
         QuestionDTO questionDTO = questionService.getQuestionByQno(qno);
 
         if(questionDTO == null) {
-            return "redirect:/user";
+            return "redirect:/";
         }
 
         model.addAttribute("question", questionDTO);
@@ -111,27 +111,27 @@ public class QuestionController {
     }
 
     // 사용자 - 문의 수정
-    @PostMapping("/user/updateQuestion/{qno}")
+    @PostMapping("/updateQuestion/{qno}")
     public String updateQuestion(@PathVariable("qno") Integer qno, QuestionDTO questionDTO) {
         boolean result = questionService.updateQuestion(qno, questionDTO);
 
         if(!result) {
-            return "redirect:/user/updateForm/" + qno;
+            return "redirect:/updateForm/" + qno;
         }
 
-        return "redirect:/user/questionDetail/" + qno;
+        return "redirect:/questionDetail/" + qno;
     }
 
     // 사용자 - 문의 삭제
-    @GetMapping("/user/deleteQuestion/{qno}")
+    @GetMapping("/deleteQuestion/{qno}")
     public String deleteQuestion(@PathVariable("qno") Integer qno) {
         boolean result = questionService.deleteQuestion(qno);
 
         if(!result) {
-            return "redirect:/user/questionDetail/" + qno;
+            return "redirect:/questionDetail/" + qno;
         }
 
-        return "redirect:/user/myPage";
+        return "redirect:/myPage";
     }
 
     /* ------------------------------ */
