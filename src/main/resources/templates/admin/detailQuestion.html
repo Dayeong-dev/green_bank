@@ -50,27 +50,28 @@
   </style>
 </head>
 <body>
+    <div th:replace="admin/fragments/header :: headerFragment"></div>
+    <section>
+        <h2>질문 상세</h2>
 
-<h2>질문 상세</h2>
+        <div class="detail-box">
+            <p><strong>제목:</strong> <span th:text="${question.title}">제목</span></p>
+            <p><strong>내용:</strong> <span th:text="${question.content}">내용</span></p>
+            <p><strong>작성자:</strong> <span th:text="${question.user.username}">작성자</span></p>
+            <p><strong>답변여부:</strong> <span th:utext="${question.isanswered == '1' ? '&#x2B55;' : '&#x274C;'}">❌</span></p>
+        </div>
 
-<div class="detail-box">
-  <p><strong>제목:</strong> <span th:text="${question.title}">제목</span></p>
-  <p><strong>내용:</strong> <span th:text="${question.content}">내용</span></p>
-  <p><strong>작성자:</strong> <span th:text="${question.user.username}">작성자</span></p>
-  <p><strong>답변여부:</strong> <span th:utext="${question.isanswered == '1' ? '&#x2B55;' : '&#x274C;'}">❌</span></p>
-</div>
+        <div class="btn-group">
+            <!-- 답변하기 이동 버튼 -->
+            <form th:action="@{/admin/answer}" method="get">
+                <input type="hidden" name="id" th:value="${question.qno}" />
+                <button type="submit" class="answer-btn">답변하기</button>
+            </form>
 
-<div class="btn-group">
-  <!-- 답변하기 이동 버튼 -->
-  <form th:action="@{/admin/answer}" method="get">
-    <input type="hidden" name="id" th:value="${question.qno}" />
-    <button type="submit" class="answer-btn">답변하기</button>
-  </form>
-
-  <!-- 목록으로 돌아가기 -->
-  <button onclick="history.back()" class="back-btn">목록으로</button>
-</div>
-
+            <!-- 목록으로 돌아가기 -->
+            <button onclick="history.back()" class="back-btn">목록으로</button>
+        </div>
+    </section>
 </body>
 </html>
 
