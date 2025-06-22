@@ -2,6 +2,7 @@ package com.example.green_bank.admin.controller;
 
 import com.example.green_bank.admin.dto.AdminDTO;
 import com.example.green_bank.admin.service.AdminService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,5 +39,17 @@ public class AdminController {
         session.setAttribute("adminName", admin.getName());
 
         return "redirect:/admin";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        String adminId = (String) session.getAttribute("adminId");
+
+        if(adminId != null) {
+            session.removeAttribute("adminId");
+            session.removeAttribute("adminName");
+        }
+
+        return "redirect:/admin/loginForm";
     }
 }

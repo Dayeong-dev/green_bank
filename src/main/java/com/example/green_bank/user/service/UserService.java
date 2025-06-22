@@ -21,6 +21,10 @@ public class UserService {
         User userMapped = entityDtoMapper.toEntity(userDTO);
         User user = userRepository.findByUsernameAndPassword(userMapped.getUsername(), userMapped.getPassword());
 
+        if(user == null) {
+            return null;
+        }
+
         return entityDtoMapper.toDTO(user);
     }
 

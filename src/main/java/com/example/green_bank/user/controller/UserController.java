@@ -68,4 +68,17 @@ public class UserController {
         }
         return "redirect:/user/loginForm";
     }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        String username = (String) session.getAttribute("username");
+
+        if(username != null) {
+            session.removeAttribute("username");
+            session.removeAttribute("name");
+        }
+
+        return "redirect:/user/loginForm";
+    }
+
 }
