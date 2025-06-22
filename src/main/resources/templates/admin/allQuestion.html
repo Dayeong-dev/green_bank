@@ -46,10 +46,11 @@
                     <td th:text="${qna.user.username}">작성자</td>
                     <td th:text="${qna.isanswered == '1' ? 'O' : 'X'}">답변여부</td>
                     <td>
-                        <form th:action="@{/admin/answer}" method="get">
+                        <form th:if="${qna.isanswered == '0'}" th:action="@{/admin/answer}" method="get">
                             <input type="hidden" name="id" th:value="${qna.qno}" />
                             <button type="submit" class="answer-btn">답변하기</button>
                         </form>
+                        <p th:if="${qna.isanswered == '1'}">답변완료</p>
                     </td>
                 </tr>
             </tbody>

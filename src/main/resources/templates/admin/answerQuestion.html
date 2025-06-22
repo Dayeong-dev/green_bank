@@ -39,8 +39,15 @@
         <h2>답변 하기</h2>
 
         <form th:action="@{/admin/answer/submit}" method="post">
+            <div class="box">
+                <input type="hidden" name="qno" th:value="${question.qno}" />
+                <label>질문 제목</label><br>
+                <div th:text="${question.title}"></div>
+                <label>질문 내용</label><br>
+                <div th:text="${question.content}"></div>
+            </div>
             <!-- 질문 번호 숨겨서 전송 -->
-            <input type="hidden" name="qno" th:value="${question.qno}" />
+
 
             <div class="box">
                 <label>답변 내용</label><br>
