@@ -8,9 +8,6 @@ import com.example.green_bank.user.util.EntityDtoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.naming.Name;
-import java.util.Optional;
-
 @Service
 public class UserService {
 
@@ -20,14 +17,11 @@ public class UserService {
     @Autowired
     private EntityDtoMapper entityDtoMapper;
 
-    public boolean login(UserDTO userDTO){
+    public UserDTO login(UserDTO userDTO){
         User userMapped = entityDtoMapper.toEntity(userDTO);
         User user = userRepository.findByUsernameAndPassword(userMapped.getUsername(), userMapped.getPassword());
 
-        if(user != null){
-            return true;
-        }
-        return false;
+        return entityDtoMapper.toDTO(user);
     }
 
     public boolean join(UserDTO userDTO){

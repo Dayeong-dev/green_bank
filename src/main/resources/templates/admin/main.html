@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div th:replace="admin/fragments/header :: headerFragment"></div>
+    <section>
+        <table>
+            <thead>
+                <tr>
+                    <th>제목</th>
+                    <th>내용</th>
+                    <th>작성자</th>
+                    <th>답변여부</th>
+                    <th>관리</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="question : ${questionList}">
+                    <td th:text="${question.title}">제목</td>
+                    <td>
+                        <a th:href="@{/admin/question/detail(id=${question.qno})}" th:text="${question.content}">내용</a>
+                    </td>
+                    <td th:text="${question.user.username}">작성자</td>
+                    <td th:text="${question.isanswered == '1' ? 'O' : 'X'}">답변여부</td>
+                    <td>
+                        <form th:action="@{/admin/answer}" method="get">
+                            <input type="hidden" name="id" th:value="${question.qno}" />
+                            <button type="submit" class="answer-btn">답변하기</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</body>
+</html>

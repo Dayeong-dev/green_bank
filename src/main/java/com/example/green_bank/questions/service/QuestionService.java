@@ -1,7 +1,8 @@
 package com.example.green_bank.questions.service;
 
-import com.example.green_bank.admin.dto.AnswerDto;
-import com.example.green_bank.admin.repository.AnswerRepository;
+import com.example.green_bank.admin.entity.Admin;
+import com.example.green_bank.admin.repository.AdminRepository;
+import com.example.green_bank.questions.repository.AnswerRepository;
 import com.example.green_bank.questions.dto.QuestionAnswerDTO;
 import com.example.green_bank.questions.dto.QuestionDTO;
 import com.example.green_bank.questions.entity.Answer;
@@ -14,7 +15,6 @@ import com.example.green_bank.user.entity.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,13 +23,15 @@ import java.util.Optional;
 public class QuestionService {
     private final QuestionRepository questionRepository;
     private final AnswerRepository answerRepository;
+    private final AdminRepository adminRepository;
 
     private final QuestionMapper questionMapper = new QuestionMapper();
     private final AnswerMapper answerMapper = new AnswerMapper();
 
-    public QuestionService(QuestionRepository questionRepository, AnswerRepository answerRepository) {
+    public QuestionService(QuestionRepository questionRepository, AnswerRepository answerRepository, AdminRepository adminRepository) {
         this.questionRepository = questionRepository;
         this.answerRepository = answerRepository;
+        this.adminRepository = adminRepository;
     }
 
     public boolean regQuestion(QuestionDTO questionDTO, Integer typeId, String username) {
@@ -127,5 +129,36 @@ public class QuestionService {
         questionRepository.save(curr_question);
 
         return true;
+    }
+
+    public List<QuestionDTO> getAllQuestions() {
+        List<Question> result = questionRepository.findAll();
+        List<QuestionDTO> questionList = new ArrayList<>();
+
+        for(Question question : result) {
+            questionList.add(questionMapper.toDTO(question));
+        }
+
+        return questionList;
+    }
+
+    @Transactional
+    public List<QuestionDTO> getQuestionsByTypeIdAndIsanswered(String adminId) {
+        Optional<Admin> result1 = adminRepository.findById(adminId);
+
+        if(result1.isEmpty()) {
+            return null;
+        }
+
+        Admin admin = result1.get();
+
+        List<Question> result2 = questionRepository.findAllByQuestionType_TypeidAndIsanswered(admin.getQuestionType().getTypeid(), "0");
+        List<QuestionDTO> questionList = new ArrayList<>();
+
+        for(Question question : result2) {
+            questionList.add(questionMapper.toDTO(question));
+        }
+
+        return questionList;
     }
 }
