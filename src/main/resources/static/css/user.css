@@ -1,0 +1,129 @@
+/* 사용자 로그인/회원가입 페이지 */
+#login, #join {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 0;
+    margin-top: 8rem;
+}
+
+#join .check-id-wrap {
+    width: 20rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.5rem auto;
+    padding: 0 0.5rem;
+}
+
+#join .check-id-wrap p {
+    display: inline-block;
+}
+
+#join .check-id-wrap button {
+    padding: 0.5rem 1rem;
+}
+
+
+/* 사용자 메인 페이지 */
+#main .btn-list {
+    margin: 2rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 2rem;
+}
+
+#main .btn-list .type_btn {
+    width: 8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: #ddd;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    transition: transform 0.1s ease;
+}
+
+#main .btn-list .type_btn:hover {
+    transform: translateY(-0.5rem);
+}
+
+#main .btn-list .type_btn .img-wrap {
+    width: 100%;
+    background-color: #fff;
+    border-radius: 50%;
+    padding: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+#main .btn-list .type_btn .img-wrap img {
+    width: 100%;
+}
+
+#main .btn-list .type_btn a {
+    text-decoration: none;
+}
+
+
+/* 사용자 문의 등록 완료 페이지 */
+#regSuccess {
+    text-align: center;
+}
+
+#regSuccess h4 {
+    font-size: 2rem;
+    margin: 2rem 0;
+}
+
+#regSuccess p {
+    margin: 0.5rem 0;
+}
+
+#regSuccess a {
+    text-decoration: underline;
+}
+
+
+/* 사용자 마이페이지 */
+#myPage tbody td.title-cell a {
+    display: inline-block;
+    width: 15rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+
+/* 사용자 답변 상세 */
+#questionDetail table {
+    width: 40rem;
+    table-layout: fixed;
+    margin-bottom: 2rem;
+}
+
+#questionDetail table th {
+    width: 15%;
+    color: #444;
+    padding: 0.5rem 1rem;
+    font-weight: 700;
+    background-color: #f6f6f6;
+}
+
+#questionDetail table td {
+    padding: 0.5rem 1rem;
+    text-align: left;
+    border-top: none;
+}
+
+#questionDetail table .cell-content {
+    min-height: 15rem;
+}
+
+#questionDetail .btn-wrap {
+    margin-bottom: 2rem;
+}

@@ -2,7 +2,9 @@
   <header>
     <a th:href="@{/admin}">Admin</a>
     <ul>
-      <li th:text="${session.adminName} + ' 관리자님 환영합니다!'"></li>
+      <li class="welcome">
+        <span th:text="${session.adminName}"></span> 관리자님 환영합니다!
+      </li>
       <li><a th:href="@{/admin/question/all}">문의 관리</a></li>
       <li><a th:href="@{/admin/logout}">로그아웃</a></li>
     </ul>

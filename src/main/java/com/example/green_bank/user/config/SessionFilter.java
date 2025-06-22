@@ -33,7 +33,7 @@ public class SessionFilter implements Filter {
         System.out.println("Uri: " + uri);
 
         // 정적 자원과 인터넷 표준 경로는 필터 통과
-        if(uri.startsWith("/css") || uri.startsWith("/images") || uri.startsWith("/js") || uri.startsWith("/.well-known")) {
+        if(uri.startsWith("/css") || uri.startsWith("/images") || uri.startsWith("/js") || uri.startsWith("/fonts") || uri.startsWith("/.well-known")) {
             chain.doFilter(request, response); // 필터 통과
             return;
         }
