@@ -24,35 +24,38 @@
   </style>
 </head>
 <body>
-<h2>문의 리스트</h2>
-
-<table>
-  <thead>
-  <tr>
-    <th>제목</th>
-    <th>내용</th>
-    <th>작성자</th>
-    <th>답변여부</th>
-    <th>관리</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="qna : ${qnaList}">
-    <td th:text="${qna.title}">제목</td>
-    <td>
-    <a th:href="@{/admin/question/detail(id=${qna.qno})}" th:text="${qna.content}">내용</a>
-    </td>
-    <td th:text="${qna.user.username}">작성자</td>
-    <td th:text="${qna.isanswered == '1' ? 'O' : 'X'}">답변여부</td>
-    <td>
-      <form th:action="@{/admin/answer}" method="get">
-        <input type="hidden" name="id" th:value="${qna.qno}" />
-        <button type="submit" class="answer-btn">답변하기</button>
-      </form>
-    </td>
-  </tr>
-  </tbody>
-</table>
+    <div th:replace="admin/fragments/header :: headerFragment"></div>
+    <section>
+        <h2>문의 리스트</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>제목</th>
+                    <th>내용</th>
+                    <th>작성자</th>
+                    <th>답변여부</th>
+                    <th>관리</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="qna : ${qnaList}">
+                    <td th:text="${qna.title}">제목</td>
+                    <td>
+                        <a th:href="@{/admin/question/detail(id=${qna.qno})}" th:text="${qna.content}">내용</a>
+                    </td>
+                    <td th:text="${qna.user.username}">작성자</td>
+                    <td th:text="${qna.isanswered == '1' ? 'O' : 'X'}">답변여부</td>
+                    <td>
+                        <form th:if="${qna.isanswered == '0'}" th:action="@{/admin/answer}" method="get">
+                            <input type="hidden" name="id" th:value="${qna.qno}" />
+                            <button type="submit" class="answer-btn">답변하기</button>
+                        </form>
+                        <p th:if="${qna.isanswered == '1'}">답변완료</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
 
 </body>
 </html>

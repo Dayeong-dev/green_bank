@@ -5,20 +5,21 @@
     <title>Join page</title>
 </head>
 <body>
-<img src="/images/logo.png" alt="로고" style="width:200px">
-<form action="/user/join" method="post" onsubmit="return checkForm()">
-    <input type="text" name="username" id="username" placeholder="Input UserName......" required>
-    <button type="button" onclick="check_id(event)">중복확인</button>
-    <p id="notice_p"></p>
-    <input type="password" name="password" placeholder="Input Password......" required> <br>
-    <input type="text" name="name" placeholder="Input Name......" required> <br>
-    <input type="text" name="phone" placeholder="Input Phone Number......" required> <br>
-    <p id="notice_p2"></p>
-    <input type="submit" value="가입하기">
-    <p th:if="${msg != null}" th:text="${msg}"></p>
-</form>
-<p>이미 가입하셨다면? >> <a href="/user/loginForm">로그인</a></p>
-
+    <section>
+        <img src="/images/logo.png" alt="로고" style="width:200px">
+        <form action="/join" method="post" onsubmit="return checkForm()">
+            <input type="text" name="username" id="username" placeholder="Input UserName......" required>
+            <button type="button" onclick="check_id(event)">중복확인</button>
+            <p id="notice_p"></p>
+            <input type="password" name="password" placeholder="Input Password......" required> <br>
+            <input type="text" name="name" placeholder="Input Name......" required> <br>
+            <input type="text" name="phone" placeholder="Input Phone Number......" required> <br>
+            <p id="notice_p2"></p>
+            <input type="submit" value="가입하기">
+            <p th:if="${msg != null}" th:text="${msg}"></p>
+        </form>
+        <p>이미 가입하셨다면? >> <a href="/loginForm">로그인</a></p>
+    </section>
 <script>
 
     const notice_p = document.getElementById('notice_p');
@@ -30,7 +31,7 @@
 
     const username = document.getElementById('username').value;
 
-    fetch("/user/join/checkId", {
+    fetch("/join/checkId", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"

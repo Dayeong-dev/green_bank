@@ -7,32 +7,31 @@
 <body>
     <div th:replace="fragments/header :: headerFragment"></div>
     <section>
-      <h2>답변 상세</h2>
-      <div>
-          <p th:text="${question.title}"></p>
-          <p th:text="${question.content}"></p>
-      </div>
-      <div th:if="${answer != null}">
-          <p th:text="${answer.admin.name}"></p>
-          <p th:text="${answer.content}"></p>
-      </div>
-      <div>
-        <button th:data-qno="${question.qno}" th:onclick="updateQuestion(this.getAttribute('data-qno'))">수정</button>
-        <button th:data-qno="${question.qno}" th:onclick="deleteQuestion(this.getAttribute('data-qno'))">삭제</button>
-      </div>
-      <a href="/myPage">목록으로 돌아가기</a>
+        <h2>답변 상세</h2>
+        <div>
+            <p th:text="${question.title}"></p>
+            <p th:text="${question.content}"></p>
+        </div>
+        <div th:if="${answer != null}">
+            <p th:text="${answer.admin.name}"></p>
+            <p th:text="${answer.content}"></p>
+        </div>
+        <div>
+            <button th:data-qno="${question.qno}" th:onclick="updateQuestion(this.getAttribute('data-qno'))">수정</button>
+            <button th:data-qno="${question.qno}" th:onclick="deleteQuestion(this.getAttribute('data-qno'))">삭제</button>
+        </div>
+        <a href="/myPage">목록으로 돌아가기</a>
     </section>
     <script>
         function updateQuestion(qno) {
-            location.href = "/user/updateForm/" + qno;
+            location.href = "/updateForm/" + qno;
         }
 
         function deleteQuestion(qno) {
             if(confirm("해당 문의를 삭제하시겠습니까??")) {
-                location.href = "/user/deleteQuestion/" + qno;
+                location.href = "/deleteQuestion/" + qno;
             }
         }
-
     </script>
 </body>
 </html>

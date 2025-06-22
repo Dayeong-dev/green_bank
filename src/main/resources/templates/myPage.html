@@ -22,7 +22,7 @@
                 <tr>
                   <td th:text="${question.qno}"></td>
                   <td th:text="${question.questionType.name}"></td>
-                  <td><a th:href="'/user/questionDetail/' + ${question.qno}" th:text="${question.title}"></a></td>
+                  <td><a th:href="'/questionDetail/' + ${question.qno}" th:text="${question.title}"></a></td>
                   <td th:text="${question.createdAt}"></td>
                   <td th:text="${question.isanswered == 0 ? '미답변' : '답변완료'}"></td>
                 </tr>

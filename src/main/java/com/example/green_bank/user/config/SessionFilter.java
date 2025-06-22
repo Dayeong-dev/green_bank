@@ -39,7 +39,7 @@ public class SessionFilter implements Filter {
         }
 
         // 사용자 로그인/회원가입은 필터 통과
-        if(uri.startsWith("/user/login") || uri.startsWith("/user/join")) {
+        if(uri.startsWith("/login") || uri.startsWith("/join")) {
             chain.doFilter(request, response);
             return;
         }
@@ -102,6 +102,6 @@ public class SessionFilter implements Filter {
 
         // 사용자 로그인 폼으로 redirect
         res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        res.sendRedirect("/user/loginForm");
+        res.sendRedirect("/loginForm");
     }
 }

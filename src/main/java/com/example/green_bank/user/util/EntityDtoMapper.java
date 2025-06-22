@@ -13,7 +13,7 @@ public class EntityDtoMapper {
 
         userDTO.setName(user.getName());
         userDTO.setPassword(user.getPassword());
-        userDTO.setUsername(user.getPassword());
+        userDTO.setUsername(user.getUsername());
         userDTO.setPhone(user.getPhone());
 
         return userDTO;
