@@ -1,53 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>질문 상세 보기</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 30px;
-    }
+    <meta charset="UTF-8">
+    <title>질문 상세 보기</title>
+    <style>
+        .detail-box {
+          border: 1px solid #ccc;
+          padding: 20px;
+          width: 70%;
+          margin-bottom: 20px;
+        }
 
-    h2 {
-      color: #333;
-    }
+        .detail-box p {
+          margin: 10px 0;
+          font-size: 16px;
+        }
 
-    .detail-box {
-      border: 1px solid #ccc;
-      padding: 20px;
-      width: 70%;
-      margin-bottom: 20px;
-    }
+        .btn-group {
+          display: flex;
+          gap: 10px;
+        }
 
-    .detail-box p {
-      margin: 10px 0;
-      font-size: 16px;
-    }
+        .answer-btn, .back-btn {
+          padding: 8px 16px;
+          border: none;
+          cursor: pointer;
+          font-size: 15px;
+          border-radius: 5px;
+        }
 
-    .btn-group {
-      display: flex;
-      gap: 10px;
-    }
+        .answer-btn {
+          background-color: #4CAF50;
+          color: white;
+        }
 
-    .answer-btn, .back-btn {
-      padding: 8px 16px;
-      border: none;
-      cursor: pointer;
-      font-size: 15px;
-      border-radius: 5px;
-    }
-
-    .answer-btn {
-      background-color: #4CAF50;
-      color: white;
-    }
-
-    .back-btn {
-      background-color: #888;
-      color: white;
-    }
-  </style>
+        .back-btn {
+          background-color: #888;
+          color: white;
+        }
+    </style>
+    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/admin.css" />
 </head>
 <body>
     <div th:replace="admin/fragments/header :: headerFragment"></div>

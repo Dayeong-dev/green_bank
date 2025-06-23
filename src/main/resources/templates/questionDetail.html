@@ -34,8 +34,8 @@
                 </tr>
             </tbody>
         </table>
-        <div class="btn-wrap">
-            <button th:if="${answer == null}" th:data-qno="${question.qno}" th:onclick="updateQuestion(this.getAttribute('data-qno'))">수정</button>
+        <div th:if="${answer == null}" class="btn-wrap">
+            <button th:data-qno="${question.qno}" th:onclick="updateQuestion(this.getAttribute('data-qno'))">수정</button>
             <button th:data-qno="${question.qno}" th:onclick="deleteQuestion(this.getAttribute('data-qno'))">삭제</button>
         </div>
         <a href="/myPage">← 목록으로 돌아가기</a>

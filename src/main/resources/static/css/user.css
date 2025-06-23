@@ -64,10 +64,6 @@
     width: 100%;
 }
 
-#main .btn-list .type_btn a {
-    text-decoration: none;
-}
-
 
 /* 사용자 문의 등록 완료 페이지 */
 #regSuccess {
