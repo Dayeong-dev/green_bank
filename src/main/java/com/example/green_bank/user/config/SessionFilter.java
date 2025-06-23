@@ -76,7 +76,7 @@ public class SessionFilter implements Filter {
         }
 
         // 세션에 관리자 계정 有
-        if(adminId != null) {
+        if(adminId != null && uri.startsWith("/admin")) {
             try {
                 Optional<Admin> findAdmin = adminRepository.findById(adminId);
 
