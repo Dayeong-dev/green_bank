@@ -102,7 +102,7 @@ header #notification .red-circle {
     height: 0.5rem;
 }
 
-header #notification .notice-content {
+header #notification .notice-box {
     display: none;
     width: 15rem;
     max-height: 20rem;
