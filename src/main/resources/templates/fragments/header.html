@@ -9,6 +9,22 @@
       </li>
       <li><a th:href="@{/myPage}">마이페이지</a></li>
       <li><a th:href="@{/logout}">로그아웃</a></li>
+      <li id="notification">
+        <img class="bell" src="/images/icon/icon_bell.png" alt="종 아이콘" onclick="openContent()" />
+        <img class="red-circle" src="/images/icon/icon_red_circle.png" alt="알림 아이콘" />
+        <div class="notice-content">
+          <p th:if="${notificationList == null or #lists.isEmpty(questionList)}">알림이 없습니다. </p>
+        </div>
+      </li>
     </ul>
   </header>
+  <script>
+    const $notification = document.getElementById("notification");
+    const $bell = $notification.querySelector(".bell");
+    const $noticeContent = $notification.querySelector(".notice-content");
+
+    function openContent() {
+       $noticeContent.classList.toggle("active");
+    }
+  </script>
 </div>

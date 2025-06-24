@@ -25,8 +25,11 @@
     box-sizing: border-box;
 }
 
-body {
+html {
     font-size: 16px;
+}
+
+body {
     font-family: 'BNKGothic', sans-serif;
     font-weight: 400;
 }
@@ -60,11 +63,59 @@ header #logo img {
 
 header ul {
     display: flex;
+    align-items: center;
     column-gap: 1.5rem;
 }
 
 header ul .welcome span {
     font-weight: 700;
+}
+
+header #notification {
+    position: relative;
+    width: 2rem;
+    height: 2rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+header #notification .bell {
+    width: 2rem;
+    height: 2rem;
+    padding: 0.25rem;
+}
+
+header #notification .bell:hover {
+    background-color: rgba(100, 100, 100, 0.2);
+    border-radius: 50%;
+}
+
+header #notification .red-circle {
+    display: block;
+    position: absolute;
+    top: 0.125rem;
+    right: 0.125rem;
+    width: 0.5rem;
+    height: 0.5rem;
+}
+
+header #notification .notice-content {
+    display: none;
+    width: 15rem;
+    max-height: 20rem;
+    box-shadow: 0 0 0.25rem #aaa;
+
+    position: absolute;
+    top: 100%;
+    right: 0;
+    padding: 1rem;
+}
+
+header #notification .active {
+    display: block;
 }
 
 section {
