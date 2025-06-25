@@ -5,6 +5,7 @@ import com.example.green_bank.questions.repository.AnswerRepository;
 import com.example.green_bank.questions.entity.Answer;
 import com.example.green_bank.questions.entity.Question;
 import com.example.green_bank.questions.repository.QuestionRepository;
+import com.example.green_bank.questions.service.AnswerService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,9 @@ public class AnswerController {
 
     @Autowired
     private HttpServletRequest request;
+
+    @Autowired
+    private AnswerService answerService;
 
     // 모든 문의 관리
     @GetMapping("/question/all")
@@ -77,27 +81,9 @@ public class AnswerController {
                                HttpSession session,
                                Model model) {
 
-        Optional<Question> optionalQuestion = questionRepository.findById(qno);
         String adminId = (String) session.getAttribute("adminId");
 
-        if (optionalQuestion.isPresent()) {
-            Question question = optionalQuestion.get();
-            Admin admin = new Admin();
-
-            admin.setAdminid(adminId);
-
-            // 1. Answer 엔티티 생성 및 저장
-            Answer answer = Answer.builder()
-                    .content(content)
-                    .question(question)
-                    .admin(admin)
-                    .build();
-
-            answerRepository.save(answer);
-
-            question.setIsanswered("1");
-            questionRepository.save(question);
-        }
+        answerService.regAnswer(qno, adminId, content);
 
         return "redirect:/admin/question/detail?id=" + qno;  // 등록 후 상세로 이동
     }

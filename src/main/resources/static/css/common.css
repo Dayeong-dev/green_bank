@@ -94,7 +94,7 @@ header #notification .bell:hover {
 }
 
 header #notification .red-circle {
-    display: block;
+    display: none;
     position: absolute;
     top: 0.125rem;
     right: 0.125rem;
@@ -102,16 +102,23 @@ header #notification .red-circle {
     height: 0.5rem;
 }
 
-header #notification .notice-box {
+header #notification .noti-box {
     display: none;
     width: 15rem;
     max-height: 20rem;
     box-shadow: 0 0 0.25rem #aaa;
+    text-align: center;
 
     position: absolute;
     top: 100%;
     right: 0;
     padding: 1rem;
+}
+
+header #notification .noti-box > p {
+    color: #aaa;
+    font-size: 0.75rem;
+    margin-top: 1rem;
 }
 
 header #notification .active {
