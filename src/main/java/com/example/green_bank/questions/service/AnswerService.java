@@ -48,11 +48,11 @@ public class AnswerService {
         admin.setAdminid(adminId);
 
         // Answer 엔티티 생성 및 저장
-        Answer answer = Answer.builder()
+        Answer answer = answerRepository.findByQuestion_Qno(qno).orElseGet(() -> Answer.builder()
                 .content(content)
                 .question(question)
                 .admin(admin)
-                .build();
+                .build());
 
         answerRepository.save(answer);
 

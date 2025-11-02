@@ -60,11 +60,12 @@ public class AnswerController {
     @GetMapping("/question/detail")
     public String detailQuestion(@RequestParam("id") Integer id, Model model) {
         Optional<Question> optionalQuestion = questionRepository.findById(id);
+        Optional<Answer> optionalAnswer = answerRepository.findByQuestion_Qno(id);
 
         if (optionalQuestion.isPresent()) {
             Question question = optionalQuestion.get();
-            Answer answer = answerRepository.findByQuestion_Qno(id);
-
+            Answer answer = optionalAnswer.get();
+          
             model.addAttribute("question", question);
             model.addAttribute("answer", answer);
 

@@ -80,9 +80,10 @@ public class QuestionService {
         questionAnswerDTO.setQuestionDTO(questionMapper.toDTO(question));
 
         if(question.getIsanswered().equals("1")) {
-            Answer answer = answerRepository.findByQuestion_Qno(qno);
+            Optional<Answer> optional = answerRepository.findByQuestion_Qno(qno);
 
-            if(answer != null) {
+            if(optional.isPresent()) {
+            	Answer answer = optional.get();
                 questionAnswerDTO.setAnswerDTO(answerMapper.toDTO(answer));
             }
         }
