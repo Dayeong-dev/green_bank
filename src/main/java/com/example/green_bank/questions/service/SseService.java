@@ -12,12 +12,25 @@ public class SseService {
     private Map<String, SseEmitter> emitters = new ConcurrentHashMap<>();
 
     public SseEmitter subscribe(String username) {
-        SseEmitter emitter = new SseEmitter(1000 * 60L);
+    	SseEmitter oldEmitter = emitters.get(username);
+    	
+    	if(oldEmitter != null) {
+    		try {
+    			// 이전 Emitter 닫아주기
+    			// Emitter는 하나의 HTTP 응답 스트림에 묶이기 때문에 이전 건 닫고 새로 보내줘야함
+    			oldEmitter.complete();
+    		} catch(Exception e) {
+    			// 예외는 무시
+    		}
+    	}
+    	
+        SseEmitter emitter = new SseEmitter(30 * 60 * 1000L);	// 타임아웃 30분으로 지정
 
         emitters.put(username, emitter);
 
         emitter.onCompletion(() -> emitters.remove(username));
         emitter.onTimeout(() -> emitters.remove(username));
+        emitter.onError(e -> emitters.remove(username));
 
         return emitter;
     }
