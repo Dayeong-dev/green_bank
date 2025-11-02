@@ -9,6 +9,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface NotificationRepository extends JpaRepository<Notification, Integer> {
-	@Query("select n from Notification n where n.user.username = :username and (n.createdAt >= :since or n.isRead = 0) order by n.createdAt desc")
+	@Query(""" 
+		select n from Notification n 
+		where n.user.username = :username 
+			and (n.createdAt >= :since or n.isRead = 0) 
+		order by n.createdAt desc""")
     List<Notification> findRecentNotificationByUsername(@Param("username") String username, @Param("since") LocalDateTime since);
+
+	boolean existsByUser_UsernameAndIsRead(String username, int i);
 }

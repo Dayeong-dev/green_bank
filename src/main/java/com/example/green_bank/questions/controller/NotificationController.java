@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class NotificationController {
@@ -37,5 +39,16 @@ public class NotificationController {
         List<NotificationDTO> notificationList = notificationService.readNotifications(username);
 
         return notificationList;
+    }
+    
+    @GetMapping("/notification/has-unread")
+    public Map<String, Boolean> hasUnread(HttpSession session) {
+    	String username = (String) session.getAttribute("username");
+    	Boolean result = notificationService.hasUnreadNotification(username);
+    	
+    	Map<String, Boolean> map = new HashMap<>();
+    	map.put("hasUnread", result);
+    	
+    	return map;
     }
 }

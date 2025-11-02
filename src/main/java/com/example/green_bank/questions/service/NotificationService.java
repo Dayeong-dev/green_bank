@@ -49,4 +49,10 @@ public class NotificationService {
 
         return notificationList;
     }
+
+	public boolean hasUnreadNotification(String username) {
+		boolean result = notificationRepository.existsByUser_UsernameAndIsRead(username, 0);
+		
+		return result;
+	}
 }

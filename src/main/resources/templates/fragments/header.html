@@ -28,6 +28,16 @@
     
     const $notiBox = $notification.querySelector(".noti-box");
     const $content = $notiBox.querySelector(".content");
+    
+    
+    fetch("/notification/has-unread")
+    .then(response => response.json())
+    .then(data => {
+    	if(data.hasUnread) {
+    		$redCircle.classList.add("active");
+    	}
+    })
+    .catch(e => console.log(e));
 
     const eventSource = new EventSource("/subscribe");
 
