@@ -5,6 +5,11 @@
     --secondary-color: #5BAA8C;
 }
 
+/* 스크롤 바 스타일 */
+::-webkit-scrollbar { width: 4px }
+::-webkit-scrollbar-thumb { background-color: #b4b4b4; border-radius: 4px; background-clip: padding-box }
+::-webkit-scrollbar-track { background-color: #fff; border-radius: 4px; }
+
 @font-face {
     font-family: 'BNKGothic';
     src: url('/fonts/BNKGothic-Regular.ttf') format('truetype');
@@ -112,7 +117,36 @@ header #notification .noti-box {
     position: absolute;
     top: 100%;
     right: 0;
-    padding: 1rem;
+    padding-bottom: 1rem;
+    background-color: #fff;
+}
+
+header #notification .noti-box > .content {
+	overflow-y: scroll;
+	
+	max-height: 15rem;
+	background-color: #eee;
+	border: 1px solid #ddd;
+	
+	padding: 0.5rem;
+}
+
+header #notification .noti-box > .content ul {
+	display: flex;
+	flex-direction: column;
+	
+	font-size: 0.75rem;
+	text-align: left;
+	
+	gap: 0.5rem;
+}
+
+header #notification .noti-box > .content li {
+	padding: 0.5rem;
+	
+	border-radius: 4px;
+	background-color: #fff;
+	box-shadow: 0 0 0.25rem #aaa;
 }
 
 header #notification .noti-box > p {

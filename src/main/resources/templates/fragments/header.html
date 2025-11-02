@@ -10,21 +10,14 @@
       <li><a th:href="@{/myPage}">마이페이지</a></li>
       <li><a th:href="@{/logout}">로그아웃</a></li>
       <li id="notification">
-          <img class="bell" src="/images/icon/icon_bell.png" alt="종 아이콘" onclick="openContent()" />
-          <img class="red-circle" src="/images/icon/icon_red_circle.png" alt="알림 아이콘" />
-          <div class="noti-box">
-              <div th:if="${notificationList == null or #lists.isEmpty(notificationList)}" th:class="content">
-                  알림이 없습니다.
-              </div>
-              <div th:if="${notificationList != null and not #lists.isEmpty(notificationList)}" th:class="content">
-                  <ul id="noti-list">
-                      <li th:each="notification : ${notificationList}">
-                          <a th:href="${notification.targetUrl}" th:text="${notification.message}"></a>
-                      </li>
-                  </ul>
-              </div>
-          <p>최근 30일 이내 알림만 표시됩니다.</p>
-          </div>
+		<img class="bell" src="/images/icon/icon_bell.png" alt="종 아이콘" onclick="openContent()" />
+		<img class="red-circle" src="/images/icon/icon_red_circle.png" alt="알림 아이콘" />
+		<div class="noti-box">
+			<div class="content">
+				알림이 없습니다.
+			</div>
+			<p>최근 30일 이내 알림만 표시됩니다.</p>
+		</div>
       </li>
     </ul>
   </header>
@@ -32,17 +25,45 @@
     const $notification = document.getElementById("notification");
     const $bell = $notification.querySelector(".bell");
     const $redCircle = $notification.querySelector(".red-circle");
+    
     const $notiBox = $notification.querySelector(".noti-box");
+    const $content = $notiBox.querySelector(".content");
 
     const eventSource = new EventSource("/subscribe");
 
     eventSource.addEventListener("message", e => {
         $redCircle.classList.add("active");
-        console.log("Get Event");
     });
 
-    function openContent() {
+    async function openContent() {
         $notiBox.classList.toggle("active");
+
+        // 알림 박스를 열었을 때
+        if($notiBox.classList.contains("active")) {
+        	$redCircle.classList.remove("active");	// 종 아이콘 빨간 점 제거
+        	
+            const data = await fetch("/notification/read").then(response => response.json());
+            
+            if(data.length > 0) {
+            	const ul = document.createElement("ul");
+            	
+            	for(let notification of data) {
+            		const li = document.createElement("li");
+            		const a = document.createElement("a");
+            		
+            		a.innerText = notification.message;
+            		a.href = notification.targetUrl;
+            		
+            		li.appendChild(a);
+            		ul.appendChild(li);
+            	}
+            	
+            	$content.innerHTML = "";
+            	$content.appendChild(ul);
+            } else {
+            	$content.innerHTML = "알림이 없습니다.";
+            }
+        }
     }
   </script>
 </div>
