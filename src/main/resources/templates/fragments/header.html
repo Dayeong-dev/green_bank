@@ -64,8 +64,20 @@
             		a.innerText = notification.message;
             		a.href = notification.targetUrl;
             		
-            		li.appendChild(a);
             		ul.appendChild(li);
+            		li.appendChild(a);
+            		
+            		// 아직 읽지 않은 알림이면 붉은 점 아이콘 표시
+            		if(notification.isRead === 0) {
+            			const img = document.createElement("img");
+            			
+                		img.classList.add("red-circle");
+                		img.classList.add("active");
+                		img.src = "/images/icon/icon_red_circle.png";
+                		img.alt = "new 아이콘";
+                		
+                		li.appendChild(img);
+            		}
             	}
             	
             	$content.innerHTML = "";
