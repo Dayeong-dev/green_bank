@@ -7,6 +7,8 @@ import com.example.green_bank.questions.entity.Question;
 import com.example.green_bank.questions.repository.AnswerRepository;
 import com.example.green_bank.questions.repository.QuestionRepository;
 import com.example.green_bank.questions.util.AnswerMapper;
+import com.example.green_bank.user.util.EntityDtoMapper;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +22,7 @@ public class AnswerService {
     private final SseService sseService;
 
     private final AnswerMapper answerMapper = new AnswerMapper();
+    private final EntityDtoMapper userMapper = new EntityDtoMapper();
 
     public AnswerService(AnswerRepository answerRepository,
                          QuestionRepository questionRepository,
@@ -44,7 +47,7 @@ public class AnswerService {
 
         admin.setAdminid(adminId);
 
-        // 1. Answer 엔티티 생성 및 저장
+        // Answer 엔티티 생성 및 저장
         Answer answer = Answer.builder()
                 .content(content)
                 .question(question)
@@ -58,14 +61,14 @@ public class AnswerService {
         questionRepository.save(question);
 
         // 알림 테이블에 메시지 추가
-        String message = "'" + question.getTitle() + "' 문의에 답변이 등록되었습니다. ";
+        String message = "[" + question.getTitle() + "] 문의에 답변이 등록되었습니다. ";
         String targetUrl = "/questionDetail/" + qno;
 
         NotificationDTO notificationDTO = new NotificationDTO();
         notificationDTO.setMessage(message);
         notificationDTO.setTargetUrl(targetUrl);
         notificationDTO.setIsRead(0);
-        notificationDTO.setUser(question.getUser());
+        notificationDTO.setUserDTO(userMapper.toDTO(question.getUser()));
 
         notificationService.regNotification(notificationDTO);
 
