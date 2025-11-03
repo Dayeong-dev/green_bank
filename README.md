@@ -42,22 +42,22 @@
 ### 사용자
 | 메인 | 문의 작성 | 문의 상세 | 마이페이지 |
 | --- | --- | --- | --- |
-| <img src="images/user_main.png" alt="메인화면" width="160"/> | <img src="images/user_register_question.png" alt="문의 작성" width="160"/> | <img src="images/user_question_detail.png" alt="문의 상세" width="160"/> | <img src="images/user_mypage.png" alt="마이페이지" width="160"/> |
+| <img src="https://github.com/Dayeong-dev/green_bank/blob/main/images/user_main.png" alt="메인화면" width="160"/> | <img src="https://github.com/Dayeong-dev/green_bank/blob/main/images/user_register_question.png" alt="문의 작성" width="160"/> | <img src="https://github.com/Dayeong-dev/green_bank/blob/main/images/user_question_detail.png" alt="문의 상세" width="160"/> | <img src="https://github.com/Dayeong-dev/green_bank/blob/main/images/user_mypage.png" alt="마이페이지" width="160"/> |
 
 ### 관리자
 | 관리자 로그인 | 미답변 리스트 | 전체 문의 | 답변 작성 |
 | --- | --- | --- | --- |
-| <img src="images/admin_login.png" alt="관리자 로그인" width="160"/> | <img src="images/admin_main.png" alt="미답변 리스트" width="160"/> | <img src="images/admin_all_questions.png" alt="전체 문의" width="160"/> | <img src="images/admin_answer.png" alt="답변 작성" width="160"/> |
+| <img src="https://github.com/Dayeong-dev/green_bank/blob/main/images/admin_login.png" alt="관리자 로그인" width="160"/> | <img src="https://github.com/Dayeong-dev/green_bank/blob/main/images/admin_main.png" alt="미답변 리스트" width="160"/> | <img src="https://github.com/Dayeong-dev/green_bank/blob/main/images/admin_all_questions.png" alt="전체 문의" width="160"/> | <img src="https://github.com/Dayeong-dev/green_bank/blob/main/images/admin_answer.png" alt="답변 작성" width="160"/> |
 
 ## 📚 DB 설계
-<img src="docs/greenbank_erd.png" alt="ERD 다이어그램" width="500"/>
+<img src="https://github.com/Dayeong-dev/green_bank/blob/main/docs/greenbank_erd.png" alt="ERD 다이어그램" width="500"/>
 
-> ERD 이미지 원본: [docs/greenbank_erd.png](docs/greenbank_erd.png)
+> ERD 이미지 원본: [https://github.com/Dayeong-dev/green_bank/blob/main/docs/greenbank_erd.png](docs/greenbank_erd.png)
 
 ## 📄 기타 문서
-- [테이블명세서](docs/greenbank_테이블명세서.xlsx)
-- [업무분장표](docs/greenbank_업무분장표.xlsx)
-- [와이어프레임](docs/greenbank_와이어프레임.pptx)
+- [테이블명세서](https://github.com/Dayeong-dev/green_bank/blob/main/docs/greenbank_테이블명세서.xlsx)
+- [업무분장표](https://github.com/Dayeong-dev/green_bank/blob/main/docs/greenbank_업무분장표.xlsx)
+- [와이어프레임](https://github.com/Dayeong-dev/green_bank/blob/main/docs/greenbank_와이어프레임.pptx)
 
 ## ⚙️ 환경 설정
 > 아래 내용을 참고하여 `src/main/resources/application.properties` 파일을 생성한 후 실행해주세요.
